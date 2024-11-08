@@ -95,16 +95,6 @@ public class TollCalculator
         int month = date.Month;
         int day = date.Day;
 
-        if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
-        {
-            return true;
-        }
-
-        if (date.Month == 7)
-        {
-            return true;
-        }
-
         if (year == 2013)
         {
             if (
@@ -121,6 +111,24 @@ public class TollCalculator
                 return true;
             }
         }
-        return false;
+
+        return IsWeekend() || IsJuly();
+
+        bool IsWeekend()
+        {
+            switch (date.DayOfWeek)
+            {
+                case DayOfWeek.Saturday:
+                case DayOfWeek.Sunday:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        bool IsJuly()
+        {
+            return date.Month == 7;
+        }
     }
 }
