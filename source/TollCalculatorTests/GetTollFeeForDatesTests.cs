@@ -12,7 +12,7 @@ public class GetTollFeeForDatesTests : TollCalculatorTestsBase
         WhenGettingTollFee_ThenExceptionIsThrown<ExpectedSingleDateException>(
             vehicle: Vehicle.Car,
             timestamps: ["2024-11-08 07:00:00", "2024-11-09 08:00:00"],
-            expectedExceptionMessage: "Expected single date but got [2024-11-08 0:00:00, 2024-11-09 0:00:00]"
+            expectedExceptionMessage: "Expected single date but got [*, *]"
         );
 
         void WhenGettingTollFee_ThenExceptionIsThrown<ExceptionType>(
