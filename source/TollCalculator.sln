@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TollCalculator", "TollCalculator\TollCalculator.csproj", "{3E1F6BE4-0EFA-42B2-A9C8-B2CA9112BC9A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TollCalculatorTests", "TollCalculatorTests\TollCalculatorTests.csproj", "{3DE00CB5-884A-4C01-80A2-74557B464FA6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3E1F6BE4-0EFA-42B2-A9C8-B2CA9112BC9A} = {3E1F6BE4-0EFA-42B2-A9C8-B2CA9112BC9A}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
