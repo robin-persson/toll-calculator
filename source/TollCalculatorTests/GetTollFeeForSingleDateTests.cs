@@ -28,10 +28,10 @@ public class GetTollFeeForSingleDateTests : TollCalculatorTestsBase
     [InlineData("2024-01-01 18:30:00", 0)]
     [InlineData("2024-01-01 21:03:00", 0)]
     [InlineData("2024-01-01 23:57:00", 0)]
-    public void GetTollFee_ReturnsExpectedFee_ForTimeOfDay(string dateString, int expectedFee)
+    public void GetTollFee_ReturnsExpectedFee_ForTimeOfDay(string timestamp, int expectedFee)
     {
         GivenTollCalculator();
-        WhenGettingTollFeeWith(Vehicle.Car, dateString);
+        WhenGettingTollFeeWith(Vehicle.Car, timestamp);
         ThenResultIs(expectedFee);
     }
 
@@ -68,10 +68,10 @@ public class GetTollFeeForSingleDateTests : TollCalculatorTestsBase
     [InlineData("2024-11-24 07:00:00")]
     [InlineData("2024-11-30 07:00:00")]
     [InlineData("2024-12-01 07:00:00")]
-    public void Toll_IsFree_ForWeekends(string dateString)
+    public void Toll_IsFree_ForWeekends(string timestamp)
     {
         GivenTollCalculator();
-        WhenGettingTollFeeWith(Vehicle.Car, dateString);
+        WhenGettingTollFeeWith(Vehicle.Car, timestamp);
         ThenResultIs(0);
     }
 
@@ -111,10 +111,10 @@ public class GetTollFeeForSingleDateTests : TollCalculatorTestsBase
     [InlineData("2026-07-31 07:00:00")]
     [InlineData("2027-07-31 07:00:00")]
     [InlineData("2028-07-31 07:00:00")]
-    public void Toll_IsFree_ForJuly(string dateString)
+    public void Toll_IsFree_ForJuly(string timestamp)
     {
         GivenTollCalculator();
-        WhenGettingTollFeeWith(Vehicle.Car, dateString);
+        WhenGettingTollFeeWith(Vehicle.Car, timestamp);
         ThenResultIs(0);
     }
 
@@ -136,10 +136,10 @@ public class GetTollFeeForSingleDateTests : TollCalculatorTestsBase
         ThenResultIs(0);
     }
 
-    private void WhenGettingTollFeeWith(Vehicle vehicle, string dateString)
+    private void WhenGettingTollFeeWith(Vehicle vehicle, string timestamp)
     {
-        var date = DateTime.Parse(dateString);
+        var datetime = DateTime.Parse(timestamp);
 
-        result = calculator!.GetTollFee(date, vehicle);
+        result = calculator!.GetTollFee(datetime, vehicle);
     }
 }

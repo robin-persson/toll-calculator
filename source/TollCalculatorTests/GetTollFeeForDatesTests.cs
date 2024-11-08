@@ -10,7 +10,7 @@ public class GetTollFeeForDatesTests : TollCalculatorTestsBase
         GivenTollCalculator();
         WhenGettingTollFeeWith(
             vehicle: Vehicle.Car,
-            dates:
+            timestamps:
             [
                 "2024-11-08 07:00:00",
                 "2024-11-08 08:00:00",
@@ -24,9 +24,9 @@ public class GetTollFeeForDatesTests : TollCalculatorTestsBase
         ThenResultIs(60);
     }
 
-    private void WhenGettingTollFeeWith(Vehicle vehicle, string[] dates)
+    private void WhenGettingTollFeeWith(Vehicle vehicle, IEnumerable<string> timestamps)
     {
-        var dateTimes = from date in dates select DateTime.Parse(date);
+        var dateTimes = from timestamp in timestamps select DateTime.Parse(timestamp);
         result = calculator!.GetTollFee(vehicle, dateTimes);
     }
 }

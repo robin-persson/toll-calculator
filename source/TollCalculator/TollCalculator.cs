@@ -10,16 +10,16 @@ public class TollCalculator(IHolidayProvider holidayProvider)
      * Calculate the total toll fee for one day
      *
      * @param vehicle - the vehicle
-     * @param dates   - date and time of all passes on one day
+     * @param timestamps  - date and time of all passes on one day
      * @return - the total toll fee for that day
      */
-    public int GetTollFee(Vehicle vehicle, IEnumerable<DateTime> dates)
+    public int GetTollFee(Vehicle vehicle, IEnumerable<DateTime> timestamps)
     {
         return Math.Min(Fees().Sum(), DAILY_MAXIMUM);
 
         IEnumerable<int> Fees()
         {
-            return from date in dates select GetTollFee(pass, vehicle);
+            return from pass in timestamps select GetTollFee(pass, vehicle);
         }
     }
 
@@ -39,19 +39,19 @@ public class TollCalculator(IHolidayProvider holidayProvider)
         }
     }
 
-    public int GetTollFee(DateTime date, Vehicle vehicle)
+    internal int GetTollFee(DateTime timestamp, Vehicle vehicle)
     {
-        if (IsTollFreeDate(date) || IsTollFreeVehicle(vehicle))
+        if (IsTollFreeDate(timestamp) || IsTollFreeVehicle(vehicle))
             return 0;
 
-        switch (date.Hour)
+        switch (timestamp.Hour)
         {
             case 6:
-                return date.Minute < 30 ? 8 : 13;
+                return timestamp.Minute < 30 ? 8 : 13;
             case 7:
                 return 18;
             case 8:
-                return date.Minute < 30 ? 13 : 8;
+                return timestamp.Minute < 30 ? 13 : 8;
             case 9:
             case 10:
             case 11:
@@ -60,13 +60,13 @@ public class TollCalculator(IHolidayProvider holidayProvider)
             case 14:
                 return 8;
             case 15:
-                return date.Minute < 30 ? 13 : 18;
+                return timestamp.Minute < 30 ? 13 : 18;
             case 16:
                 return 18;
             case 17:
                 return 13;
             case 18:
-                return date.Minute < 30 ? 8 : 0;
+                return timestamp.Minute < 30 ? 8 : 0;
             default:
                 return 0;
         }
