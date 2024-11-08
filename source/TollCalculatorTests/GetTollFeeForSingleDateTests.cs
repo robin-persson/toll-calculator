@@ -34,7 +34,19 @@ public class GetTollFeeForSingleDateTests : TollCalculatorTestsBase
         ThenResultIs(expectedFee);
     }
 
+    [Theory]
+    [InlineData(Vehicle.Motorbike)]
+    [InlineData(Vehicle.Tractor)]
+    [InlineData(Vehicle.Emergency)]
+    [InlineData(Vehicle.Diplomat)]
+    [InlineData(Vehicle.Foreign)]
+    [InlineData(Vehicle.Military)]
+    public void GetTollFee_IsFree_ForExemptVehicles(Vehicle vehicle)
     {
+        WhenGettingTollFeeWith(vehicle, "2024-01-01 07:00:00");
+        ThenResultIs(0);
+    }
+
     private void WhenGettingTollFeeWith(Vehicle vehicle, string dateString)
     {
         var date = DateTime.Parse(dateString);
