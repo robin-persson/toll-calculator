@@ -7,4 +7,8 @@
     <OutputType>Library</OutputType>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Nager.Date" Version="2.7.0" />
+  </ItemGroup>
+
 </Project>

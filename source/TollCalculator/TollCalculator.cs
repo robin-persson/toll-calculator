@@ -1,6 +1,8 @@
-﻿namespace TollFeeCalculator;
+﻿using Nager.Date.HolidayProviders;
 
-public class TollCalculator
+namespace TollFeeCalculator;
+
+public class TollCalculator(IHolidayProvider holidayProvider)
 {
     /**
      * Calculate the total toll fee for one day

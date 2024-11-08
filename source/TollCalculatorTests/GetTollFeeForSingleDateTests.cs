@@ -28,8 +28,9 @@ public class GetTollFeeForSingleDateTests : TollCalculatorTestsBase
     [InlineData("2024-01-01 18:30:00", 0)]
     [InlineData("2024-01-01 21:03:00", 0)]
     [InlineData("2024-01-01 23:57:00", 0)]
-    public void GetTollFee_ReturnsExpected_ForTimeOfDay(string dateString, int expectedFee)
+    public void GetTollFee_ReturnsExpectedFee_ForTimeOfDay(string dateString, int expectedFee)
     {
+        GivenTollCalculator();
         WhenGettingTollFeeWith(Vehicle.Car, dateString);
         ThenResultIs(expectedFee);
     }
@@ -43,6 +44,7 @@ public class GetTollFeeForSingleDateTests : TollCalculatorTestsBase
     [InlineData(Vehicle.Military)]
     public void Toll_IsFree_ForExemptVehicles(Vehicle vehicle)
     {
+        GivenTollCalculator();
         WhenGettingTollFeeWith(vehicle, "2024-01-01 07:00:00");
         ThenResultIs(0);
     }
@@ -68,6 +70,7 @@ public class GetTollFeeForSingleDateTests : TollCalculatorTestsBase
     [InlineData("2024-12-01 07:00:00")]
     public void Toll_IsFree_ForWeekends(string dateString)
     {
+        GivenTollCalculator();
         WhenGettingTollFeeWith(Vehicle.Car, dateString);
         ThenResultIs(0);
     }
@@ -110,6 +113,7 @@ public class GetTollFeeForSingleDateTests : TollCalculatorTestsBase
     [InlineData("2028-07-31 07:00:00")]
     public void Toll_IsFree_ForJuly(string dateString)
     {
+        GivenTollCalculator();
         WhenGettingTollFeeWith(Vehicle.Car, dateString);
         ThenResultIs(0);
     }
@@ -118,7 +122,6 @@ public class GetTollFeeForSingleDateTests : TollCalculatorTestsBase
     {
         var date = DateTime.Parse(dateString);
 
-        var tollFeeCalculator = new TollCalculator();
-        result = tollFeeCalculator.GetTollFee(date, vehicle);
+        result = calculator!.GetTollFee(date, vehicle);
     }
 }
