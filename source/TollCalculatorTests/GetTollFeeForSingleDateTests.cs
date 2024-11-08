@@ -30,14 +30,15 @@ public class GetTollFeeForSingleDateTests : TollCalculatorTestsBase
     [InlineData("2024-01-01 23:57:00", 0)]
     public void GetTollFee_ReturnsExpected_ForTimeOfDay(string dateString, int expectedFee)
     {
-        var date = DateTime.Parse(dateString);
-
-        WhenGettingTollFeeWith(new Car(), date);
+        WhenGettingTollFeeWith(Vehicle.Car, dateString);
         ThenResultIs(expectedFee);
     }
 
-    private void WhenGettingTollFeeWith(Vehicle vehicle, DateTime date)
     {
+    private void WhenGettingTollFeeWith(Vehicle vehicle, string dateString)
+    {
+        var date = DateTime.Parse(dateString);
+
         var tollFeeCalculator = new TollCalculator();
         result = tollFeeCalculator.GetTollFee(date, vehicle);
     }
