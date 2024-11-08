@@ -39,6 +39,25 @@ public class GetTollFeeForDatesTests : TollCalculatorTestsBase
     }
 
     [Fact]
+    public void GettingTollFeeAcrossARangeOfHours_IsCalculatedCorrectly()
+    {
+        GivenTollCalculator();
+        WhenGettingTollFeeWith(
+            vehicle: Vehicle.Car,
+            timestamps:
+            [
+                "2024-11-08 07:55:00",
+                "2024-11-08 08:05:00",
+                "2024-11-08 08:30:00", // 18
+                "2024-11-08 14:30:00",
+                "2024-11-08 15:25:00", // + 13
+                "2024-11-08 15:30:00", // + 18
+            ]
+        );
+        ThenResultIs(18 + 13 + 18);
+    }
+
+    [Fact]
     public void Toll_DoesNotExceedDailyMaximum()
     {
         GivenTollCalculator();
