@@ -10,5 +10,10 @@ namespace TollCalculatorTests
         {
             result.Should().NotBe(null);
         }
+
+        protected void ThenResultIs(int expectedResult)
+        {
+            result.Should().Be(expectedResult);
+        }
     }
 }
