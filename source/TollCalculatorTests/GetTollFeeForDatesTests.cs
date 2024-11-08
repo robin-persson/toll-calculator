@@ -28,6 +28,17 @@ public class GetTollFeeForDatesTests : TollCalculatorTestsBase
     }
 
     [Fact]
+    public void WhenGettingFeeForSeveralPassesWithinAnHour_OnlyTheMaximumFeeIsCounted()
+    {
+        GivenTollCalculator();
+        WhenGettingTollFeeWith(
+            vehicle: Vehicle.Car,
+            timestamps: ["2024-11-08 07:30:00", "2024-11-08 07:59:00", "2024-11-08 08:29:00"]
+        );
+        ThenResultIs(18);
+    }
+
+    [Fact]
     public void Toll_DoesNotExceedDailyMaximum()
     {
         GivenTollCalculator();
