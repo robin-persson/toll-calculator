@@ -20,17 +20,23 @@ public class TollCalculator(IHolidayProvider holidayProvider)
                 $"Expected single date but got [{string.Join(", ", Days())}]"
             );
 
-        return Math.Min(Fees().Sum(), DAILY_MAXIMUM);
+        return Math.Min(Fees(timestamps).Sum(), DAILY_MAXIMUM);
 
         IEnumerable<DateTime> Days()
         {
-            var days = from date in timestamps select date.Date;
+            var days = from timestamp in timestamps select timestamp.Date;
             return days.Distinct();
         }
 
-        IEnumerable<int> Fees()
+        IEnumerable<int> Fees(IEnumerable<DateTime> timestamps)
         {
-            return from pass in timestamps select GetTollFee(pass, vehicle);
+            foreach (var hourlyTimestamps in timestamps.SplitByHour())
+            {
+                var hourlyFees =
+                    from timestamp in hourlyTimestamps
+                    select GetTollFee(timestamp, vehicle);
+                yield return hourlyFees.Max();
+            }
         }
     }
 
