@@ -41,9 +41,34 @@ public class GetTollFeeForSingleDateTests : TollCalculatorTestsBase
     [InlineData(Vehicle.Diplomat)]
     [InlineData(Vehicle.Foreign)]
     [InlineData(Vehicle.Military)]
-    public void GetTollFee_IsFree_ForExemptVehicles(Vehicle vehicle)
+    public void Toll_IsFree_ForExemptVehicles(Vehicle vehicle)
     {
         WhenGettingTollFeeWith(vehicle, "2024-01-01 07:00:00");
+        ThenResultIs(0);
+    }
+
+    [Theory]
+    [InlineData("2024-02-03 07:00:00")]
+    [InlineData("2024-02-04 07:00:00")]
+    [InlineData("2024-02-10 07:00:00")]
+    [InlineData("2024-02-11 07:00:00")]
+    [InlineData("2024-02-17 07:00:00")]
+    [InlineData("2024-02-18 07:00:00")]
+    [InlineData("2024-02-24 07:00:00")]
+    [InlineData("2024-02-25 07:00:00")]
+    [InlineData("2024-11-02 07:00:00")]
+    [InlineData("2024-11-03 07:00:00")]
+    [InlineData("2024-11-09 07:00:00")]
+    [InlineData("2024-11-10 07:00:00")]
+    [InlineData("2024-11-16 07:00:00")]
+    [InlineData("2024-11-17 07:00:00")]
+    [InlineData("2024-11-23 07:00:00")]
+    [InlineData("2024-11-24 07:00:00")]
+    [InlineData("2024-11-30 07:00:00")]
+    [InlineData("2024-12-01 07:00:00")]
+    public void Toll_IsFree_ForWeekends(string dateString)
+    {
+        WhenGettingTollFeeWith(Vehicle.Car, dateString);
         ThenResultIs(0);
     }
 
