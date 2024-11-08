@@ -4,6 +4,8 @@ namespace TollFeeCalculator;
 
 public class TollCalculator(IHolidayProvider holidayProvider)
 {
+    const int DAILY_MAXIMUM = 60;
+
     /**
      * Calculate the total toll fee for one day
      *
@@ -11,35 +13,14 @@ public class TollCalculator(IHolidayProvider holidayProvider)
      * @param dates   - date and time of all passes on one day
      * @return - the total toll fee for that day
      */
-
     public int GetTollFee(Vehicle vehicle, IEnumerable<DateTime> dates)
     {
-        DateTime intervalStart = dates[0];
-        int totalFee = 0;
-        foreach (DateTime date in dates)
+        return Math.Min(Fees().Sum(), DAILY_MAXIMUM);
+
+        IEnumerable<int> Fees()
         {
-            int nextFee = GetTollFee(date, vehicle);
-            int tempFee = GetTollFee(intervalStart, vehicle);
-
-            long diffInMillies = date.Millisecond - intervalStart.Millisecond;
-            long minutes = diffInMillies / 1000 / 60;
-
-            if (minutes <= 60)
-            {
-                if (totalFee > 0)
-                    totalFee -= tempFee;
-                if (nextFee >= tempFee)
-                    tempFee = nextFee;
-                totalFee += tempFee;
-            }
-            else
-            {
-                totalFee += nextFee;
-            }
+            return from date in dates select GetTollFee(pass, vehicle);
         }
-        if (totalFee > 60)
-            totalFee = 60;
-        return totalFee;
     }
 
     private bool IsTollFreeVehicle(Vehicle vehicle)
