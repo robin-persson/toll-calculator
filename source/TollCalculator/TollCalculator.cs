@@ -15,7 +15,18 @@ public class TollCalculator(IHolidayProvider holidayProvider)
      */
     public int GetTollFee(Vehicle vehicle, IEnumerable<DateTime> timestamps)
     {
+        if (Days().Count() != 1)
+            throw new ExpectedSingleDateException(
+                $"Expected single date but got [{string.Join(", ", Days())}]"
+            );
+
         return Math.Min(Fees().Sum(), DAILY_MAXIMUM);
+
+        IEnumerable<DateTime> Days()
+        {
+            var days = from date in timestamps select date.Date;
+            return days.Distinct();
+        }
 
         IEnumerable<int> Fees()
         {
