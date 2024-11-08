@@ -118,6 +118,24 @@ public class GetTollFeeForSingleDateTests : TollCalculatorTestsBase
         ThenResultIs(0);
     }
 
+    [Fact]
+    public void Toll_IsFree_ForHoliday()
+    {
+        GivenTollCalculator();
+        GivenHolidays(new[] { "2028-12-31" });
+        WhenGettingTollFeeWith(Vehicle.Car, "2028-12-31 07:00:00");
+        ThenResultIs(0);
+    }
+
+    [Fact]
+    public void Toll_IsFree_ForDayBeforeHoliday()
+    {
+        GivenTollCalculator();
+        GivenHolidays(new[] { "2028-12-31" });
+        WhenGettingTollFeeWith(Vehicle.Car, "2028-12-30 07:00:00");
+        ThenResultIs(0);
+    }
+
     private void WhenGettingTollFeeWith(Vehicle vehicle, string dateString)
     {
         var date = DateTime.Parse(dateString);
