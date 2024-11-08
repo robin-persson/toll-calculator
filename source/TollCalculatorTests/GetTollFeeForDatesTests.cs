@@ -27,6 +27,6 @@ public class GetTollFeeForDatesTests : TollCalculatorTestsBase
     private void WhenGettingTollFeeWith(Vehicle vehicle, string[] dates)
     {
         var dateTimes = from date in dates select DateTime.Parse(date);
-        result = calculator!.GetTollFee(vehicle, dateTimes.ToArray());
+        result = calculator!.GetTollFee(vehicle, dateTimes);
     }
 }

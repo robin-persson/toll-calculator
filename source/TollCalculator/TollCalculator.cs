@@ -12,7 +12,7 @@ public class TollCalculator(IHolidayProvider holidayProvider)
      * @return - the total toll fee for that day
      */
 
-    public int GetTollFee(Vehicle vehicle, DateTime[] dates)
+    public int GetTollFee(Vehicle vehicle, IEnumerable<DateTime> dates)
     {
         DateTime intervalStart = dates[0];
         int totalFee = 0;
