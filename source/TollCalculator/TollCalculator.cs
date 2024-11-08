@@ -34,7 +34,7 @@ public class TollCalculator(IHolidayProvider holidayProvider)
             {
                 var hourlyFees =
                     from timestamp in hourlyTimestamps
-                    select GetTollFee(timestamp, vehicle);
+                    select GetTollFee(vehicle, timestamp);
                 yield return hourlyFees.Max();
             }
         }
@@ -56,7 +56,7 @@ public class TollCalculator(IHolidayProvider holidayProvider)
         }
     }
 
-    internal int GetTollFee(DateTime timestamp, Vehicle vehicle)
+    public int GetTollFee(Vehicle vehicle, DateTime timestamp)
     {
         if (IsTollFreeDate(timestamp) || IsTollFreeVehicle(vehicle))
             return 0;

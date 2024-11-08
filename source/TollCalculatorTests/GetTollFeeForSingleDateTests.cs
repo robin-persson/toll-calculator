@@ -140,6 +140,6 @@ public class GetTollFeeForSingleDateTests : TollCalculatorTestsBase
     {
         var datetime = DateTime.Parse(timestamp);
 
-        result = calculator!.GetTollFee(datetime, vehicle);
+        result = calculator!.GetTollFee(vehicle, datetime);
     }
 }
