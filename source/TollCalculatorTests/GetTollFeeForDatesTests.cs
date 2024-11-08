@@ -1,12 +1,9 @@
-using FluentAssertions;
 using TollFeeCalculator;
 
 namespace TollCalculatorTests;
 
-public class GetTollFeeForDatesTests
+public class GetTollFeeForDatesTests : TollCalculatorTestsBase
 {
-    private int? result;
-
     [Fact]
     public void GetTollFee_IsCallable()
     {
@@ -17,11 +14,6 @@ public class GetTollFeeForDatesTests
         {
             var tollFeeCalculator = new TollCalculator();
             result = tollFeeCalculator.GetTollFee(vehicle, dates);
-        }
-
-        void ThenItReturnsAResult()
-        {
-            result.Should().NotBe(null);
         }
     }
 }
