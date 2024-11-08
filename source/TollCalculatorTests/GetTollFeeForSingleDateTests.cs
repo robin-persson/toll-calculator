@@ -72,6 +72,48 @@ public class GetTollFeeForSingleDateTests : TollCalculatorTestsBase
         ThenResultIs(0);
     }
 
+    [Theory]
+    [InlineData("2024-07-01 07:00:00")]
+    [InlineData("2024-07-02 07:00:00")]
+    [InlineData("2024-07-03 07:00:00")]
+    [InlineData("2024-07-04 07:00:00")]
+    [InlineData("2024-07-05 07:00:00")]
+    [InlineData("2024-07-06 07:00:00")]
+    [InlineData("2024-07-07 07:00:00")]
+    [InlineData("2024-07-08 07:00:00")]
+    [InlineData("2024-07-09 07:00:00")]
+    [InlineData("2024-07-10 07:00:00")]
+    [InlineData("2024-07-11 07:00:00")]
+    [InlineData("2024-07-12 07:00:00")]
+    [InlineData("2024-07-13 07:00:00")]
+    [InlineData("2024-07-14 07:00:00")]
+    [InlineData("2024-07-15 07:00:00")]
+    [InlineData("2024-07-16 07:00:00")]
+    [InlineData("2024-07-17 07:00:00")]
+    [InlineData("2024-07-18 07:00:00")]
+    [InlineData("2024-07-19 07:00:00")]
+    [InlineData("2024-07-20 07:00:00")]
+    [InlineData("2024-07-21 07:00:00")]
+    [InlineData("2024-07-22 07:00:00")]
+    [InlineData("2024-07-23 07:00:00")]
+    [InlineData("2024-07-24 07:00:00")]
+    [InlineData("2024-07-25 07:00:00")]
+    [InlineData("2024-07-26 07:00:00")]
+    [InlineData("2024-07-27 07:00:00")]
+    [InlineData("2024-07-28 07:00:00")]
+    [InlineData("2024-07-29 07:00:00")]
+    [InlineData("2024-07-30 07:00:00")]
+    [InlineData("2024-07-31 07:00:00")]
+    [InlineData("2025-07-31 07:00:00")]
+    [InlineData("2026-07-31 07:00:00")]
+    [InlineData("2027-07-31 07:00:00")]
+    [InlineData("2028-07-31 07:00:00")]
+    public void Toll_IsFree_ForJuly(string dateString)
+    {
+        WhenGettingTollFeeWith(Vehicle.Car, dateString);
+        ThenResultIs(0);
+    }
+
     private void WhenGettingTollFeeWith(Vehicle vehicle, string dateString)
     {
         var date = DateTime.Parse(dateString);
