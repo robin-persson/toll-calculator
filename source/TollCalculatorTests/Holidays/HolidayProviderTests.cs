@@ -13,7 +13,9 @@ public class HolidayProviderTests
     {
         GivenHolidayProvider();
         WhenGettingHolidaysFor(2024);
-        ThenResultIs(new List<DateTime> { new DateTime(2024, 1, 1), new DateTime(2024, 12, 31) });
+        ThenResultContains(
+            new List<DateTime> { new DateTime(2024, 1, 1), new DateTime(2024, 12, 31) }
+        );
     }
 
     [Fact]
@@ -21,7 +23,7 @@ public class HolidayProviderTests
     {
         GivenHolidayProvider();
         WhenGettingHolidaysFor(2024);
-        ThenResultIs(
+        ThenResultContains(
             new List<DateTime>
             {
                 new DateTime(2024, 1, 6),
@@ -36,7 +38,7 @@ public class HolidayProviderTests
     {
         GivenHolidayProvider();
         WhenGettingHolidaysFor(2024);
-        ThenResultIs(
+        ThenResultContains(
             new List<DateTime>
             {
                 new DateTime(2024, 3, 29),
@@ -66,6 +68,14 @@ public class HolidayProviderTests
         }
     }
 
+    [Fact]
+    public void GetHolidays_For2024_ReturnsMay1()
+    {
+        GivenHolidayProvider();
+        WhenGettingHolidaysFor(2024);
+        ThenResultContains(new List<DateTime> { new DateTime(2024, 5, 1) });
+    }
+
     private void GivenHolidayProvider()
     {
         holidayProvider = new HolidayProvider();
@@ -76,7 +86,7 @@ public class HolidayProviderTests
         result = holidayProvider!.GetHolidays(year);
     }
 
-    private void ThenResultIs(IEnumerable<DateTime> expectedResult)
+    private void ThenResultContains(IEnumerable<DateTime> expectedResult)
     {
         result!.Should().ContainInOrder(expectedResult);
     }

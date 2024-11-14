@@ -28,14 +28,18 @@
             }
             yield return new DateTime(year, 1, 1);
             yield return new DateTime(year, 1, 6);
-            yield return new DateTime(year, 12, 25);
-            yield return new DateTime(year, 12, 26);
-            yield return new DateTime(year, 12, 31);
 
             foreach (var holiday in EasterHolidays())
             {
                 yield return holiday;
             }
+
+            yield return new DateTime(year, 5, 1);
+
+            yield return new DateTime(year, 12, 25);
+            yield return new DateTime(year, 12, 26);
+
+            yield return new DateTime(year, 12, 31);
 
             bool IsYearSupported()
             {
