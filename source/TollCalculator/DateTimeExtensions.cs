@@ -9,14 +9,13 @@ public static class DateTimeExtensions
 
     public static IEnumerable<IEnumerable<DateTime>> SplitByHour(this IEnumerable<DateTime> input)
     {
-        var remaining = input;
-        while (remaining.Any())
+        while (input.Any())
         {
-            var next = remaining.First();
+            var next = input.First();
             var withinAnHour = from time in input where time.IsWithinAnHourOf(next) select time;
             IEnumerable<DateTime> nextHour = [next, .. withinAnHour];
             yield return nextHour;
-            remaining = remaining.Except(nextHour);
+            input = input.Except(nextHour);
         }
     }
 }

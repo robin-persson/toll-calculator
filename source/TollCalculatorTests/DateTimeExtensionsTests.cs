@@ -43,16 +43,6 @@ public class DateTimeExtensionsTests
             }
         );
 
-        void GivenListOfTimestamps(IEnumerable<DateTime> timestamps)
-        {
-            this.timestamps = timestamps;
-        }
-
-        void WhenSplittingByHour()
-        {
-            result = timestamps!.SplitByHour();
-        }
-
         void ThenResultIs(IEnumerable<IEnumerable<DateTime>> expectedResult)
         {
             Listify(result!).Should().BeEquivalentTo(Listify(expectedResult));
@@ -65,5 +55,50 @@ public class DateTimeExtensionsTests
                 }
             }
         }
+    }
+
+    [Fact]
+    public void SplitByHour_ShouldNotChangeInput()
+    {
+        GivenListOfTimestamps(
+            new List<DateTime>()
+            {
+                new DateTime(2022, 1, 1, 8, 0, 0),
+                new DateTime(2022, 1, 1, 8, 15, 0),
+                new DateTime(2022, 1, 1, 9, 0, 0),
+                new DateTime(2022, 1, 1, 9, 30, 0),
+                new DateTime(2022, 1, 1, 10, 0, 0),
+                new DateTime(2022, 1, 1, 11, 0, 0),
+                new DateTime(2022, 1, 1, 12, 0, 0),
+            }
+        );
+        WhenSplittingByHour();
+        ThenListOfTimestampsEquals(
+            new List<DateTime>()
+            {
+                new DateTime(2022, 1, 1, 8, 0, 0),
+                new DateTime(2022, 1, 1, 8, 15, 0),
+                new DateTime(2022, 1, 1, 9, 0, 0),
+                new DateTime(2022, 1, 1, 9, 30, 0),
+                new DateTime(2022, 1, 1, 10, 0, 0),
+                new DateTime(2022, 1, 1, 11, 0, 0),
+                new DateTime(2022, 1, 1, 12, 0, 0),
+            }
+        );
+
+        void ThenListOfTimestampsEquals(IEnumerable<DateTime> expectedTimestamps)
+        {
+            timestamps!.Should().BeEquivalentTo(expectedTimestamps);
+        }
+    }
+
+    private void GivenListOfTimestamps(IEnumerable<DateTime> timestamps)
+    {
+        this.timestamps = timestamps;
+    }
+
+    private void WhenSplittingByHour()
+    {
+        result = timestamps!.SplitByHour();
     }
 }
