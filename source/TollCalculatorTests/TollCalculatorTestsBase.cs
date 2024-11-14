@@ -1,8 +1,7 @@
 ﻿using FluentAssertions;
 using Moq;
-using Nager.Date.HolidayProviders;
-using Nager.Date.Models;
 using TollFeeCalculator;
+using TollFeeCalculator.Holidays;
 
 namespace TollCalculatorTests;
 
@@ -16,7 +15,7 @@ public class TollCalculatorTestsBase
     {
         holidayProviderMock
             .Setup(provider => provider.GetHolidays(It.IsAny<int>()))
-            .Returns(new List<Holiday>());
+            .Returns(new List<DateTime>());
     }
 
     protected void GivenTollCalculator()
@@ -40,11 +39,11 @@ public class TollCalculatorTestsBase
             .Setup(provider => provider.GetHolidays(It.IsAny<int>()))
             .Returns(holidays());
 
-        IEnumerable<Holiday> holidays()
+        IEnumerable<DateTime> holidays()
         {
             foreach (string date in dates)
             {
-                yield return new Holiday { Date = DateTime.Parse(date) };
+                yield return DateTime.Parse(date);
             }
         }
     }

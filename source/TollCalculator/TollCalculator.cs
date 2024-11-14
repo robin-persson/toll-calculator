@@ -1,4 +1,4 @@
-﻿using Nager.Date.HolidayProviders;
+﻿using TollFeeCalculator.Holidays;
 
 namespace TollFeeCalculator;
 
