@@ -25,6 +25,8 @@
 
             yield return new DateTime(year, 5, 1);
 
+            yield return easterDay.AddDays(39);
+
             yield return new DateTime(year, 12, 25);
             yield return new DateTime(year, 12, 26);
 

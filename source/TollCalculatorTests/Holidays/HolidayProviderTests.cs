@@ -76,6 +76,14 @@ public class HolidayProviderTests
         ThenResultContains(new List<DateTime> { new DateTime(2024, 5, 1) });
     }
 
+    [Fact]
+    public void GetHolidays_For2024_ReturnsAscensionDay()
+    {
+        GivenHolidayProvider();
+        WhenGettingHolidaysFor(2024);
+        ThenResultContains(new List<DateTime> { new DateTime(2024, 5, 9) });
+    }
+
     private void GivenHolidayProvider()
     {
         holidayProvider = new HolidayProvider();
