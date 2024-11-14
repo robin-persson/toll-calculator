@@ -6,6 +6,8 @@
         {
             yield return new DateTime(year, 1, 1);
             yield return new DateTime(year, 1, 6);
+            yield return new DateTime(year, 12, 25);
+            yield return new DateTime(year, 12, 26);
             yield return new DateTime(year, 12, 31);
         }
     }

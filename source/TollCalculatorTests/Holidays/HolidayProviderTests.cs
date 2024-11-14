@@ -13,28 +13,37 @@ public class HolidayProviderTests
     {
         GivenHolidayProvider();
         WhenGettingHolidaysFor(2024);
+        ThenResultIs(new List<DateTime> { new DateTime(2024, 1, 1), new DateTime(2024, 12, 31) });
+    }
+
+    [Fact]
+    public void GetHolidays_For2024_ReturnsChristmasHolidays()
+    {
+        GivenHolidayProvider();
+        WhenGettingHolidaysFor(2024);
         ThenResultIs(
             new List<DateTime>
             {
-                new DateTime(2024, 1, 1),
                 new DateTime(2024, 1, 6),
-                new DateTime(2024, 12, 31),
+                new DateTime(2024, 12, 25),
+                new DateTime(2024, 12, 26),
             }
         );
+    }
 
-        void GivenHolidayProvider()
-        {
-            holidayProvider = new HolidayProvider();
-        }
 
-        void WhenGettingHolidaysFor(int year)
-        {
-            result = holidayProvider!.GetHolidays(year);
-        }
+    private void GivenHolidayProvider()
+    {
+        holidayProvider = new HolidayProvider();
+    }
 
-        void ThenResultIs(IEnumerable<DateTime> expectedResult)
-        {
-            result!.Should().ContainInOrder(expectedResult);
-        }
+    private void WhenGettingHolidaysFor(int year)
+    {
+        result = holidayProvider!.GetHolidays(year);
+    }
+
+    private void ThenResultIs(IEnumerable<DateTime> expectedResult)
+    {
+        result!.Should().ContainInOrder(expectedResult);
     }
 }
